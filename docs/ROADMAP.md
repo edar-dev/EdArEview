@@ -184,14 +184,14 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 ### Fase 0 — Bootstrap (½ giornata)
 
 - [x] GitHub repo + branch `main`
-- [ ] Init repo `EdArEview` con template Payload + Next.js
-- [ ] Configurare `@payloadcms/db-postgres` (non vercel-postgres)
-- [ ] Struttura: `src/collections/`, `src/app/(frontend)/`, `src/lib/metadata/`
+- [x] Init repo `EdArEview` con template Payload + Next.js
+- [x] Configurare `@payloadcms/db-postgres` (non vercel-postgres)
+- [x] Struttura: `src/collections/`, `src/app/(frontend)/`, `src/lib/metadata/`
 - [x] `.env.example`, `AGENTS.md`, `README.md`
 
 ### Fase 1 — Infrastruttura (1 giornata)
 
-- [ ] Progetto Vercel `edareview` collegato al repo
+- [ ] Progetto Vercel `edareview` collegato al repo (import manuale post-push)
 - [ ] Integrazione Neon: `vercel integration add neon --name edareview-db --plan free -e production -e preview`
 - [ ] Regione Neon: `eu-central-1`
 - [ ] Vercel Blob store per media

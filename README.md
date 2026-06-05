@@ -4,9 +4,9 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 **Ed**oardo **Ar**lati **Review** — il nome gioca sulla «R» come punto di unione tra le due parole.
 
-## Stack (pianificato)
+## Stack
 
-- **Frontend + CMS:** Next.js 15 + Payload CMS 3
+- **Frontend + CMS:** Next.js 16 + Payload CMS 3.85
 - **Database:** Neon Postgres (Vercel Marketplace)
 - **Media:** Vercel Blob
 - **Deploy:** Vercel
@@ -14,7 +14,7 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 ## Stato
 
-Progetto in fase di bootstrap (documentazione e setup repo).
+Fase 0–1 in corso: scaffold Payload attivo; deploy Vercel + Neon da collegare.
 
 - Panoramica: [docs/ROADMAP.md](docs/ROADMAP.md)
 - **Piani implementazione:** [docs/plans/README.md](docs/plans/README.md)
@@ -29,7 +29,10 @@ Progetto in fase di bootstrap (documentazione e setup repo).
 
 ```bash
 pnpm install
-pnpm dev          # dopo scaffold Payload (Fase 0)
+cp .env.example .env.local
+# Locale: docker compose up -d  → POSTGRES_URL in .env.local
+# Produzione: DATABASE_URL da Neon (Vercel Marketplace)
+pnpm dev
 ```
 
 - Admin Payload: `/admin` (dopo implementazione)
