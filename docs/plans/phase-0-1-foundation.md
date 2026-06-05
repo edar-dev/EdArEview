@@ -14,7 +14,7 @@ Scaffold Next.js 15 + Payload CMS 3, collegare Neon e Vercel Blob, primo deploy 
 
 - [x] Repo GitHub `edar-dev/EdArEview`
 - [x] `.gitignore`, CI hygiene, `.env.example`
-- [ ] Progetto Vercel collegato al repo (da fare su dashboard Vercel)
+- [x] Progetto Vercel `edareview` collegato al repo GitHub
 
 ---
 
@@ -180,7 +180,8 @@ Preferenza: **branch Neon `ci`** read-only per build su PR.
 - [x] Next.js + Payload scaffoldati (`pnpm install`, `pnpm generate:types`)
 - [x] `@payloadcms/db-postgres` configurato (no vercel-postgres)
 - [ ] Next.js + Payload avviabili in locale (richiede `DATABASE_URL` / Docker)
-- [ ] Vercel progetto collegato, Neon + Blob attivi
+- [x] Vercel progetto collegato, Blob attivo
+- [ ] Neon attivo (termini marketplace da accettare)
 - [ ] Deploy preview verde
 - [ ] Admin Payload raggiungibile
 - [ ] `pnpm build` OK in locale e su Vercel

@@ -39,3 +39,6 @@ Thumbs.db
 *.log
 .turbo
 *.tsbuildinfo
+
+.vercel
+.env*
