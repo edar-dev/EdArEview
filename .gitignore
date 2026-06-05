@@ -15,6 +15,7 @@ build/
 
 # Payload / Next
 next-env.d.ts
+src/payload-generated-schema.ts
 public/media/
 public/robots.txt
 public/sitemap*.xml

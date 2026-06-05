@@ -15,17 +15,21 @@ import { getClientSideURL } from '@/utilities/getURL'
 const baseClass = 'admin-bar'
 
 const collectionLabels = {
-  pages: {
-    plural: 'Pages',
-    singular: 'Page',
+  'media-works': {
+    plural: 'Media Works',
+    singular: 'Media Work',
   },
-  posts: {
-    plural: 'Posts',
-    singular: 'Post',
+  reviews: {
+    plural: 'Reviews',
+    singular: 'Review',
   },
-  projects: {
-    plural: 'Projects',
-    singular: 'Project',
+  tags: {
+    plural: 'Tags',
+    singular: 'Tag',
+  },
+  media: {
+    plural: 'Media',
+    singular: 'Media',
   },
 }
 
