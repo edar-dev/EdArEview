@@ -192,13 +192,13 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 ### Fase 1 — Infrastruttura (1 giornata)
 
 - [x] Progetto Vercel `edareview` collegato al repo GitHub
-- [ ] Integrazione Neon: accettare [termini marketplace](https://vercel.com/edar-devs-projects/~/integrations/accept-terms/neon?source=cli), poi `vercel integration add neon --name edareview-db --plan free -e production -e preview`
-- [ ] Regione Neon: `eu-central-1`
+- [x] Integrazione Neon `edareview-db` (plan `free_v3`, regione `fra1` / Frankfurt)
+- [x] `DATABASE_URL` su Production + Preview
 - [x] Vercel Blob store `edareview-media` (public read)
 - [x] Env `PAYLOAD_SECRET` (production) + `BLOB_READ_WRITE_TOKEN` (production, preview) su Vercel
 - [x] Build script: `payload migrate && payload build`
-- [ ] Prima migration Payload su Neon
-- [ ] Deploy preview funzionante (bloccato su `DATABASE_URL` / Neon)
+- [x] Prima migration Payload su Neon (`20260409_155721_initial`)
+- [ ] Deploy production verde (fix build script in corso)
 
 **MCP:** `user-vercel` (deploy, env, logs); `user-github` (repo).
 

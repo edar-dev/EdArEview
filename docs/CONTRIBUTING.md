@@ -9,7 +9,7 @@
 ## Quick start
 
 ```bash
-git clone https://github.com/edar-dev/EdArEview.git
+git clone git@github.com:edar-dev/EdArEview.git
 cd EdArEview
 pnpm install
 cp .env.example .env.local
