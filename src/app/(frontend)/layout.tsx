@@ -6,8 +6,6 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -33,10 +31,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               preview: isEnabled,
             }}
           />
-
-          <Header />
+          <header className="border-b">
+            <div className="container flex h-14 items-center justify-between">
+              <a className="font-semibold" href="/">
+                EdArEview
+              </a>
+              <a className="text-sm text-muted-foreground underline" href="/admin">
+                Admin
+              </a>
+            </div>
+          </header>
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>
@@ -48,6 +53,5 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }

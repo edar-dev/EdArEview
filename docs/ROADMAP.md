@@ -204,11 +204,13 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 2 — Schema CMS e admin (1–2 giorni)
 
-- [ ] Collection `MediaWorks` (validazione `mediaType` + `externalId` unique)
-- [ ] Collection `Reviews` (Lexical, rating, spoiler, draft/published)
-- [ ] Collection `Tags`
-- [ ] Global `SiteSettings`
-- [ ] Hook: auto-slug, `revalidatePath` on publish
+- [x] Collection `MediaWorks` (validazione `mediaType` + `externalId` unique)
+- [x] Collection `Reviews` (Lexical, rating, spoiler, draft/published)
+- [x] Collection `Tags`
+- [x] Global `SiteSettings`
+- [x] Hook: auto-slug, `revalidatePath` on publish
+- [x] Migration `20260605_211500_edareview_cms_schema` su Neon
+- [x] Rimossi template demo (Pages, Posts, Categories, Header/Footer)
 
 **Deliverable:** `/admin` utilizzabile per inserire recensioni manualmente.
 
