@@ -15,7 +15,7 @@ jobs:
     name: Repository hygiene
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Verify env template exists
         run: test -f .env.example
@@ -33,7 +33,7 @@ jobs:
     needs: repo-check
     if: hashFiles('package.json') != ''
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: pnpm/action-setup@v4
         with:
