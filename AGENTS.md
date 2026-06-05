@@ -52,5 +52,16 @@ Vedi `env.json.example` (o `.env.example`). Minimo:
 
 ## Documentazione
 
-- Piano completo: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Panoramica: [docs/ROADMAP.md](docs/ROADMAP.md)
+- **Piani implementazione:** [docs/plans/README.md](docs/plans/README.md)
+- Playbook delivery: [docs/AGENT-PLAYBOOK.md](docs/AGENT-PLAYBOOK.md)
 - Contribuzione: [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)
+
+## Ordine fasi (implementazione)
+
+1. [phase-0-1-foundation](docs/plans/phase-0-1-foundation.md)
+2. [phase-2-cms-schema](docs/plans/phase-2-cms-schema.md)
+3. [phase-4-frontend-mvp](docs/plans/phase-4-frontend-mvp.md) — prima di metadata
+4. [phase-3-metadata-apis](docs/plans/phase-3-metadata-apis.md)
+5. [phase-5-discoverability](docs/plans/phase-5-discoverability.md)
+6. [phase-6-production](docs/plans/phase-6-production.md)

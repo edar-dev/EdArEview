@@ -161,6 +161,24 @@ Route server-side: `/api/metadata/search`, `/api/metadata/import`. Chiavi solo i
 
 ---
 
+## Piani di implementazione
+
+Dettaglio operativo per fase in [`docs/plans/`](plans/):
+
+| Fase | Piano | Branch |
+|------|-------|--------|
+| 0–1 | [phase-0-1-foundation.md](plans/phase-0-1-foundation.md) | `chore/foundation` |
+| 2 | [phase-2-cms-schema.md](plans/phase-2-cms-schema.md) | `feat/cms-schema` |
+| 3 | [phase-3-metadata-apis.md](plans/phase-3-metadata-apis.md) | `feat/metadata-import` |
+| 4 | [phase-4-frontend-mvp.md](plans/phase-4-frontend-mvp.md) | `feat/frontend-mvp` |
+| 5 | [phase-5-discoverability.md](plans/phase-5-discoverability.md) | `feat/search-seo` |
+| 6 | [phase-6-production.md](plans/phase-6-production.md) | `chore/go-live` |
+
+Panoramica Gantt e dipendenze: [plans/OVERVIEW.md](plans/OVERVIEW.md)  
+Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
+
+---
+
 ## Fasi di delivery
 
 ### Fase 0 — Bootstrap (½ giornata)
@@ -273,7 +291,12 @@ EdArEview/
 ├── vercel.json
 ├── AGENTS.md
 └── docs/
-    └── ROADMAP.md               # questo file
+    ├── ROADMAP.md               # questo file
+    ├── AGENT-PLAYBOOK.md
+    └── plans/
+        ├── README.md
+        ├── OVERVIEW.md
+        └── phase-*.md
 ```
 
 ---
