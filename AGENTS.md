@@ -44,6 +44,13 @@ Vedi `env.json.example` (o `.env.example`). Minimo:
 | `user-github` | Repo, PR, CI |
 | `user-supabase` | **Non usare** per EdArEview DB |
 
+## Repository
+
+- Node **22** (`.nvmrc`), package manager **pnpm**
+- CI: `.github/workflows/ci.yml` (build attivo quando esiste `package.json`)
+- Env: solo `.env.example` in git; mai committare `.env*`
+
 ## Documentazione
 
 - Piano completo: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Contribuzione: [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)

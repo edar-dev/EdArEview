@@ -1,0 +1,17 @@
+# Normalizza fine riga (importante su Windows)
+* text=auto eol=lf
+
+# Binari
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Lockfile
+pnpm-lock.yaml linguist-generated=false
