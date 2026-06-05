@@ -198,7 +198,7 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 - [x] Env `PAYLOAD_SECRET` (production) + `BLOB_READ_WRITE_TOKEN` (production, preview) su Vercel
 - [x] Build script: `payload migrate && payload build`
 - [x] Prima migration Payload su Neon (`20260409_155721_initial`)
-- [ ] Deploy production verde (fix build script in corso)
+- [x] Deploy production verde
 
 **MCP:** `user-vercel` (deploy, env, logs); `user-github` (repo).
 

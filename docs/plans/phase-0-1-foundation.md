@@ -180,9 +180,8 @@ Preferenza: **branch Neon `ci`** read-only per build su PR.
 - [x] Next.js + Payload scaffoldati (`pnpm install`, `pnpm generate:types`)
 - [x] `@payloadcms/db-postgres` configurato (no vercel-postgres)
 - [ ] Next.js + Payload avviabili in locale (richiede `DATABASE_URL` / Docker)
-- [x] Vercel progetto collegato, Blob attivo
-- [ ] Neon attivo (termini marketplace da accettare)
-- [ ] Deploy preview verde
+- [x] Vercel progetto collegato, Blob + Neon attivi
+- [x] Deploy production verde
 - [ ] Admin Payload raggiungibile
 - [ ] `pnpm build` OK in locale e su Vercel
 - [ ] ROADMAP Fase 0–1 checkbox aggiornate
