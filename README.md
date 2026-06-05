@@ -14,7 +14,10 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 ## Stato
 
-Progetto in fase di bootstrap (documentazione e setup repo). Vedi [docs/ROADMAP.md](docs/ROADMAP.md).
+Progetto in fase di bootstrap (documentazione e setup repo).
+
+- Panoramica: [docs/ROADMAP.md](docs/ROADMAP.md)
+- **Piani implementazione:** [docs/plans/README.md](docs/plans/README.md)
 
 ## Prerequisiti
 
@@ -40,8 +43,10 @@ EdArEview/
 ├── .github/           # CI, Dependabot, PR template
 ├── .vscode/           # Settings ed estensioni consigliate
 ├── docs/
-│   ├── ROADMAP.md     # Piano di realizzazione
-│   └── CONTRIBUTING.md
+│   ├── ROADMAP.md
+│   ├── AGENT-PLAYBOOK.md
+│   ├── CONTRIBUTING.md
+│   └── plans/         # Piani operativi per fase
 ├── .env.example       # Template variabili (no segreti)
 ├── AGENTS.md          # Guida per Cursor / agenti AI
 ├── LICENSE
