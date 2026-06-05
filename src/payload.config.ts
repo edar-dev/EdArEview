@@ -19,8 +19,9 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const serverURL = getServerSideURL()
+
 export default buildConfig({
-  serverURL: getServerSideURL(),
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -73,7 +74,16 @@ export default buildConfig({
     Categories,
     Users,
   ],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [
+    serverURL,
+    'https://edareview.vercel.app',
+    'https://edareview-edar-devs-projects.vercel.app',
+  ].filter(Boolean),
+  csrf: [
+    serverURL,
+    'https://edareview.vercel.app',
+    'https://edareview-edar-devs-projects.vercel.app',
+  ].filter(Boolean),
   plugins: [
     ...plugins,
     vercelBlobStorage({

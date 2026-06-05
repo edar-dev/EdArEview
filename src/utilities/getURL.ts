@@ -1,6 +1,12 @@
 import canUseDOM from './canUseDOM'
 
+const CANONICAL_PRODUCTION_URL = 'https://edareview.vercel.app'
+
 const vercelURL = () => {
+  if (process.env.VERCEL_ENV === 'production') {
+    return CANONICAL_PRODUCTION_URL
+  }
+
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`
   }
