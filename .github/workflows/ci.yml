@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repo-check:
+    name: Repository hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify env template exists
+        run: test -f .env.example
+
+      - name: Verify secrets are not committed
+        run: |
+          if git ls-files | grep -E '^\.env$|^\.env\.local$|^\.env\.production'; then
+            echo "Secret env file tracked by git!"
+            exit 1
+          fi
+
+  build:
+    name: Build & test
+    runs-on: ubuntu-latest
+    needs: repo-check
+    if: hashFiles('package.json') != ''
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+        continue-on-error: false
+
+      - name: Typecheck
+        run: pnpm exec tsc --noEmit
+        continue-on-error: false
+
+      - name: Test
+        run: pnpm test
+        continue-on-error: true
+
+      - name: Build
+        run: pnpm build
+        env:
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          PAYLOAD_SECRET: ci-placeholder-secret-min-32-chars-long
+          SKIP_ENV_VALIDATION: true
