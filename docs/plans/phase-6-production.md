@@ -129,23 +129,24 @@ Non bloccante per go-live iniziale.
 
 ### Documentazione
 
-- [ ] Aggiornare README: URL produzione
-- [ ] ROADMAP: checkbox Fase 6 completate
-- [ ] `docs/plans/README.md`: stato fasi
+- [x] Aggiornare README: URL produzione
+- [x] ROADMAP: checkbox Fase 6 (dominio custom rinviato)
+- [x] `docs/plans/README.md`: stato fasi
+- [x] `docs/GO-LIVE.md`: checklist env + smoke test
 
 ### Comunicazione
 
-- Aggiornare bio/link social in SiteSettings con URL live
+- Aggiornare bio/link social in SiteSettings con URL live (`https://edareview.vercel.app`)
 
 ---
 
 ## Definition of Done
 
-- [ ] Sito su dominio custom HTTPS
-- [ ] Smoke test 10/10 passati
-- [ ] Admin funzionante in produzione
-- [ ] Env production documentati (non in git)
-- [ ] README con link live
+- [x] Sito live su HTTPS (`https://edareview.vercel.app`; dominio custom rinviato)
+- [x] Smoke test automatici (homepage, listing, sitemap, OG, robots, admin)
+- [x] Env production documentati in GO-LIVE.md (non in git)
+- [x] README con link live
+- [x] CI GitHub funzionante (fix action versions + pnpm 10)
 
 ---
 

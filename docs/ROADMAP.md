@@ -246,13 +246,17 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 6 — Produzione (½ giornata)
 
-- [ ] Dominio custom via Vercel
-- [ ] Deploy `main` → produzione
-- [ ] Smoke test: admin, import, publish, pagina pubblica
+- [x] Deploy `main` → produzione (`https://edareview.vercel.app`)
+- [x] Env production verificati (Neon, Payload, Blob, metadata API, `NEXT_PUBLIC_SITE_URL`)
+- [x] Smoke test automatici (homepage, listing, sitemap, OG, robots, admin)
+- [x] Fix CI GitHub (action v4, pnpm 10)
+- [x] Documentazione go-live ([GO-LIVE.md](GO-LIVE.md), README, AGENTS.md)
+- [ ] Dominio custom — **rinviato** (resta su `edareview.vercel.app`; vedi GO-LIVE quando serve)
 - [ ] (Opzionale) branch Neon per preview DB allineato alle PR
 
 ### Fase 7 — Backlog (post-MVP)
 
+- [ ] Dominio custom (Vercel + aggiornamento `NEXT_PUBLIC_SITE_URL`)
 - [ ] Liste personali ("Da vedere", "Top 10 2026")
 - [ ] Confronto opere simili
 - [ ] RSS / newsletter

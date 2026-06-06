@@ -4,6 +4,9 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 **Ed**oardo **Ar**lati **Review** — il nome gioca sulla «R» come punto di unione tra le due parole.
 
+**Produzione:** https://edareview.vercel.app  
+**Admin:** https://edareview.vercel.app/admin
+
 ## Stack
 
 - **Frontend + CMS:** Next.js 16 + Payload CMS 3.85
@@ -14,7 +17,7 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 ## Stato
 
-Fase 0–1 in corso: scaffold Payload attivo; deploy Vercel + Neon da collegare.
+MVP pubblico live (Fasi 0–6). URL canonico: `https://edareview.vercel.app` (dominio custom rinviato).
 
 - Panoramica: [docs/ROADMAP.md](docs/ROADMAP.md)
 - **Piani implementazione:** [docs/plans/README.md](docs/plans/README.md)
@@ -22,7 +25,7 @@ Fase 0–1 in corso: scaffold Payload attivo; deploy Vercel + Neon da collegare.
 ## Prerequisiti
 
 - Node.js **22** (`.nvmrc`)
-- pnpm **9+**
+- pnpm **10+**
 - `cp .env.example .env.local` e compila le variabili
 
 ## Sviluppo
@@ -35,7 +38,7 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-- Admin Payload: `/admin` (dopo implementazione)
+- Admin Payload: `/admin`
 - Guida contribuzione: [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - Agenti AI: [AGENTS.md](AGENTS.md)
 
@@ -47,6 +50,7 @@ EdArEview/
 ├── .vscode/           # Settings ed estensioni consigliate
 ├── docs/
 │   ├── ROADMAP.md
+│   ├── GO-LIVE.md
 │   ├── AGENT-PLAYBOOK.md
 │   ├── CONTRIBUTING.md
 │   └── plans/         # Piani operativi per fase
