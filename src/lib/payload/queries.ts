@@ -91,7 +91,13 @@ async function buildReviewWhere(filters: ReviewFilters): Promise<Where> {
       return emptyReviewWhere
     }
 
-    and.push({ mediaWork: { in: scopedMediaWorkIds } })
+    if (scopedMediaWorkIds.length === 1) {
+      and.push({ mediaWork: { equals: scopedMediaWorkIds[0] } })
+    } else {
+      and.push({
+        or: scopedMediaWorkIds.map((id) => ({ mediaWork: { equals: id } })),
+      })
+    }
   }
 
   if (filters.q) {
@@ -121,7 +127,13 @@ async function buildReviewWhere(filters: ReviewFilters): Promise<Where> {
 
     const or: Where[] = [{ title: { contains: filters.q } }]
     if (matchingWorkIds.length > 0) {
-      or.push({ mediaWork: { in: matchingWorkIds } })
+      if (matchingWorkIds.length === 1) {
+        or.push({ mediaWork: { equals: matchingWorkIds[0] } })
+      } else {
+        or.push({
+          or: matchingWorkIds.map((id) => ({ mediaWork: { equals: id } })),
+        })
+      }
     }
 
     and.push({ or })
@@ -201,12 +213,23 @@ export async function searchReviews(filters: ReviewFilters = {}) {
 }
 
 export async function getReviewsByMediaType(mediaType: MediaType, filters: ReviewFilters = {}) {
-  return searchReviews({
+  const result = await searchReviews({
     ...filters,
-    mediaType,
-    limit: filters.limit ?? TYPE_LISTING_FETCH_LIMIT,
+    mediaType: undefined,
+    limit: TYPE_LISTING_FETCH_LIMIT,
     page: 1,
   })
+
+  const docs = result.docs.filter((review) => {
+    const work = review.mediaWork
+    return typeof work === 'object' && work !== null && work.mediaType === mediaType
+  })
+
+  return {
+    ...result,
+    docs,
+    totalDocs: docs.length,
+  }
 }
 
 export async function getUniqueWorksFromReviews(reviews: Review[]): Promise<

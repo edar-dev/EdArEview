@@ -16,7 +16,7 @@ import {
   routeToMediaType,
   type MediaTypeRoute,
 } from '@/lib/media-types'
-import { parseReviewFilters, REVIEWS_PAGE_SIZE } from '@/lib/review-filters'
+import { parseReviewFilters, REVIEWS_PAGE_SIZE, TYPE_LISTING_FETCH_LIMIT } from '@/lib/review-filters'
 import { getCoverUrl } from '@/lib/payload/cover'
 import {
   getPopularTags,
@@ -58,7 +58,10 @@ export default async function MediaTypeListingPage({ params, searchParams }: Pag
   const mediaType = routeToMediaType(type)
   if (!mediaType) notFound()
 
-  const filters = parseReviewFilters(await searchParams, { mediaType })
+  const filters = parseReviewFilters(await searchParams, {
+    mediaType,
+    limit: TYPE_LISTING_FETCH_LIMIT,
+  })
   const [tags, reviewsResult] = await Promise.all([
     getPopularTags(),
     getReviewsByMediaType(mediaType, filters),
