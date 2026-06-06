@@ -1,0 +1,90 @@
+.metadata-search-field {
+  margin-bottom: var(--base);
+}
+
+.metadata-search-field__description {
+  color: var(--theme-elevation-500);
+  font-size: 0.875rem;
+  margin: 0 0 calc(var(--base) / 2);
+}
+
+.metadata-search-field__controls {
+  align-items: flex-start;
+  display: flex;
+  gap: calc(var(--base) / 2);
+  margin-bottom: calc(var(--base) / 2);
+}
+
+.metadata-search-field__input {
+  background: var(--theme-input-bg);
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-s);
+  color: var(--theme-text);
+  flex: 1;
+  font: inherit;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+}
+
+.metadata-search-field__results {
+  display: grid;
+  gap: calc(var(--base) / 2);
+  list-style: none;
+  margin: calc(var(--base) / 2) 0 0;
+  padding: 0;
+}
+
+.metadata-search-field__result {
+  align-items: flex-start;
+  background: var(--theme-elevation-50);
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-m);
+  cursor: pointer;
+  display: flex;
+  gap: calc(var(--base) / 2);
+  padding: calc(var(--base) / 2);
+  text-align: left;
+  width: 100%;
+}
+
+.metadata-search-field__result:hover {
+  border-color: var(--theme-elevation-300);
+}
+
+.metadata-search-field__result--selected {
+  border-color: var(--theme-success-500);
+  box-shadow: 0 0 0 1px var(--theme-success-500);
+}
+
+.metadata-search-field__cover {
+  border-radius: calc(var(--style-radius-m) / 2);
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.metadata-search-field__cover--placeholder {
+  background: var(--theme-elevation-150);
+  height: 72px;
+  width: 48px;
+}
+
+.metadata-search-field__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.metadata-search-field__original,
+.metadata-search-field__details,
+.metadata-search-field__summary {
+  color: var(--theme-elevation-500);
+  font-size: 0.8125rem;
+}
+
+.metadata-search-field__summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: +2;
+}

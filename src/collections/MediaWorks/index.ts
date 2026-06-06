@@ -38,6 +38,16 @@ export const MediaWorks: CollectionConfig = {
   },
   fields: [
     {
+      name: 'metadataImport',
+      type: 'ui',
+      label: 'Import from catalog',
+      admin: {
+        components: {
+          Field: '@/components/admin/MetadataSearchField',
+        },
+      },
+    },
+    {
       name: 'title',
       type: 'text',
       required: true,
