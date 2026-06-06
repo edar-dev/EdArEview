@@ -23,10 +23,14 @@ Preview: `PAYLOAD_SECRET` su **tutte** le branch Preview (non più per-branch).
 
 ### Sentry (Fase 8)
 
-1. Crea progetto su [sentry.io](https://sentry.io) → platform **Next.js**
-2. Vercel Production → `SENTRY_DSN` (e opzionale `NEXT_PUBLIC_SENTRY_DSN`)
-3. Per source maps leggibili: `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN`
-4. Redeploy production
+Org: **edoardo-arlati** (region EU: `https://de.sentry.io`)
+
+1. Sentry → Create project **EdArEview** (platform Next.js) — richiede permesso admin org
+2. Copia il DSN del progetto
+3. Vercel Production → `SENTRY_DSN` (+ opzionale `NEXT_PUBLIC_SENTRY_DSN`)
+4. Vercel Production → `SENTRY_ORG=edoardo-arlati`, `SENTRY_PROJECT=<slug-progetto>`
+5. Per source maps: `SENTRY_AUTH_TOKEN` (token da Sentry → Settings → Auth Tokens)
+6. Redeploy production
 
 ---
 
