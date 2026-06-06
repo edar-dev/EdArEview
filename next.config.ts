@@ -46,6 +46,10 @@ const nextConfig: NextConfig = {
             protocol: url.protocol.replace(':', '') as 'http' | 'https',
           }
         }),
+      { hostname: 's4.anilist.co', protocol: 'https' },
+      { hostname: 'image.tmdb.org', protocol: 'https' },
+      { hostname: 'images.igdb.com', protocol: 'https' },
+      { hostname: '**.public.blob.vercel-storage.com', protocol: 'https' },
     ],
   },
   webpack: (webpackConfig) => {

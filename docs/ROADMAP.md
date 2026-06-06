@@ -227,12 +227,12 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 4 — Frontend pubblico MVP (2–3 giorni)
 
-- [ ] Homepage: ultime recensioni + filtri rapidi per tipo
-- [ ] `/[type]` — listing (anime, manga, tv, games…)
-- [ ] `/[type]/[slug]` — scheda opera + recensione
-- [ ] `/reviews` — archivio cronologico
-- [ ] Layout responsive, dark mode, branding EdArEview
-- [ ] `generateMetadata` per SEO base
+- [x] Homepage: ultime recensioni + filtri rapidi per tipo
+- [x] `/[type]` — listing (anime, manga, tv, games…)
+- [x] `/[type]/[slug]` — scheda opera + recensione
+- [x] `/reviews` — archivio cronologico
+- [x] Layout responsive, dark mode, branding EdArEview
+- [x] `generateMetadata` per SEO base
 
 **Deliverable:** sito navigabile e presentabile.
 

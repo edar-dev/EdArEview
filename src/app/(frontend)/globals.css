@@ -87,13 +87,13 @@
 }
 
 :root {
-  --background: oklch(100% 0 0deg);
+  --background: oklch(98.5% 0.002 265deg);
   --foreground: oklch(14.5% 0 0deg);
-  --card: oklch(96.5% 0.005 265deg);
+  --card: oklch(100% 0 0deg);
   --card-foreground: oklch(14.5% 0 0deg);
   --popover: oklch(100% 0 0deg);
   --popover-foreground: oklch(14.5% 0 0deg);
-  --primary: oklch(20.5% 0 0deg);
+  --primary: oklch(59.5% 0.22 25deg);
   --primary-foreground: oklch(98.5% 0 0deg);
   --secondary: oklch(97% 0 0deg);
   --secondary-foreground: oklch(20.5% 0 0deg);
@@ -126,14 +126,14 @@
 }
 
 [data-theme='dark'] {
-  --background: oklch(14.5% 0 0deg);
+  --background: oklch(15.5% 0.01 280deg);
   --foreground: oklch(98.5% 0 0deg);
-  --card: oklch(17% 0 0deg);
+  --card: oklch(18% 0.012 280deg);
   --card-foreground: oklch(98.5% 0 0deg);
-  --popover: oklch(14.5% 0 0deg);
+  --popover: oklch(15.5% 0.01 280deg);
   --popover-foreground: oklch(98.5% 0 0deg);
-  --primary: oklch(98.5% 0 0deg);
-  --primary-foreground: oklch(20.5% 0 0deg);
+  --primary: oklch(65% 0.22 25deg);
+  --primary-foreground: oklch(98.5% 0 0deg);
   --secondary: oklch(26.9% 0 0deg);
   --secondary-foreground: oklch(98.5% 0 0deg);
   --muted: oklch(26.9% 0 0deg);
@@ -211,6 +211,9 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+  .logo-r {
+    color: #e63946;
   }
 }
 
