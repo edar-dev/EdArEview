@@ -2,6 +2,8 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 
 import { revalidatePath } from 'next/cache'
 
+import { mediaTypeToRoute } from '@/lib/media-types'
+
 type MediaWorkDoc = {
   slug?: string | null
   mediaType?: string | null
@@ -13,9 +15,11 @@ const revalidateMediaWorkPaths = (work: MediaWorkDoc) => {
     return
   }
 
+  const route = mediaTypeToRoute(work.mediaType as 'anime' | 'manga' | 'tv' | 'movie' | 'game')
+
   revalidatePath('/')
-  revalidatePath(`/${work.mediaType}`)
-  revalidatePath(`/${work.mediaType}/${work.slug}`)
+  revalidatePath(`/${route}`)
+  revalidatePath(`/${route}/${work.slug}`)
 }
 
 export const revalidateMediaWork: CollectionAfterChangeHook = ({
