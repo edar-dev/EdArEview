@@ -39,7 +39,42 @@ async function resolveTagId(slug: string): Promise<number | null> {
   return result.docs[0]?.id ?? null
 }
 
-function buildReviewWhere(filters: ReviewFilters): Where {
+const emptyReviewWhere: Where = { id: { equals: -1 } }
+
+function buildMediaWorkWhere(filters: ReviewFilters): Where | null {
+  const workAnd: Where[] = [{ status: { equals: 'published' } }]
+
+  if (filters.mediaType) {
+    workAnd.push({ mediaType: { equals: filters.mediaType } })
+  }
+
+  if (filters.year && filters.year > 0) {
+    workAnd.push({ year: { equals: filters.year } })
+  }
+
+  if (workAnd.length === 1) {
+    return null
+  }
+
+  return { and: workAnd }
+}
+
+async function resolvePublishedMediaWorkIds(filters: ReviewFilters): Promise<number[] | null> {
+  const mediaWorkWhere = buildMediaWorkWhere(filters)
+  if (!mediaWorkWhere) return null
+
+  const payload = await getPayloadClient()
+  const works = await payload.find({
+    collection: 'media-works',
+    where: mediaWorkWhere,
+    limit: 1000,
+    depth: 0,
+  })
+
+  return works.docs.map((work) => work.id)
+}
+
+async function buildReviewWhere(filters: ReviewFilters): Promise<Where> {
   const and: Where[] = [publishedReviewWhere]
 
   if (filters.minRating && filters.minRating > 0) {
@@ -50,18 +85,46 @@ function buildReviewWhere(filters: ReviewFilters): Where {
     and.push({ watchStatus: { equals: filters.status } })
   }
 
-  if (filters.mediaType) {
-    and.push({ 'mediaWork.mediaType': { equals: filters.mediaType } })
-  }
+  const scopedMediaWorkIds = await resolvePublishedMediaWorkIds(filters)
+  if (scopedMediaWorkIds) {
+    if (scopedMediaWorkIds.length === 0) {
+      return emptyReviewWhere
+    }
 
-  if (filters.year && filters.year > 0) {
-    and.push({ 'mediaWork.year': { equals: filters.year } })
+    and.push({ mediaWork: { in: scopedMediaWorkIds } })
   }
 
   if (filters.q) {
-    and.push({
-      or: [{ title: { contains: filters.q } }, { 'mediaWork.title': { contains: filters.q } }],
+    const payload = await getPayloadClient()
+    const titleMatchWorkWhere: Where[] = [
+      { status: { equals: 'published' } },
+      { title: { contains: filters.q } },
+    ]
+
+    if (filters.mediaType) {
+      titleMatchWorkWhere.push({ mediaType: { equals: filters.mediaType } })
+    }
+
+    const matchingWorks = await payload.find({
+      collection: 'media-works',
+      where: { and: titleMatchWorkWhere },
+      limit: 1000,
+      depth: 0,
     })
+
+    let matchingWorkIds = matchingWorks.docs.map((work) => work.id)
+
+    if (scopedMediaWorkIds) {
+      const scopedIds = new Set(scopedMediaWorkIds)
+      matchingWorkIds = matchingWorkIds.filter((id) => scopedIds.has(id))
+    }
+
+    const or: Where[] = [{ title: { contains: filters.q } }]
+    if (matchingWorkIds.length > 0) {
+      or.push({ mediaWork: { in: matchingWorkIds } })
+    }
+
+    and.push({ or })
   }
 
   return and.length === 1 ? and[0]! : { and }
@@ -88,7 +151,22 @@ export async function searchReviews(filters: ReviewFilters = {}) {
   const payload = await getPayloadClient()
   const page = filters.page && filters.page > 0 ? filters.page : 1
   const limit = filters.limit ?? REVIEWS_PAGE_SIZE
-  let where = buildReviewWhere(filters)
+  let where = await buildReviewWhere(filters)
+
+  if (where === emptyReviewWhere) {
+    return {
+      docs: [] as Review[],
+      totalDocs: 0,
+      limit,
+      totalPages: 0,
+      page,
+      pagingCounter: 0,
+      hasPrevPage: false,
+      hasNextPage: false,
+      prevPage: null as number | null,
+      nextPage: null as number | null,
+    }
+  }
 
   if (filters.tag) {
     const tagId = await resolveTagId(filters.tag)
