@@ -19,7 +19,12 @@ const vercelURL = () => {
 }
 
 export const getServerSideURL = () => {
-  return process.env.NEXT_PUBLIC_SERVER_URL || vercelURL() || 'http://localhost:3000'
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    vercelURL() ||
+    'http://localhost:3000'
+  )
 }
 
 export const getClientSideURL = () => {

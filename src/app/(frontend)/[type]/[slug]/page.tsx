@@ -7,6 +7,7 @@ import { RichText } from '@/components/RichText'
 import { SpoilerBanner } from '@/components/SpoilerBanner'
 import { formatPublishedDate } from '@/lib/format-date'
 import { isMediaTypeRoute, routeToMediaType } from '@/lib/media-types'
+import { buildOgImageUrl } from '@/lib/og'
 import { getCoverUrl } from '@/lib/payload/cover'
 import { getMediaWorkBySlug } from '@/lib/payload/queries'
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
@@ -42,11 +43,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : `Scheda di ${work.title} su EdArEview.`
 
   const cover = getCoverUrl(work)
+  const ogImage = buildOgImageUrl({
+    title: work.title,
+    rating: review?.rating,
+    mediaType,
+    cover,
+  })
 
   return {
-    title: `${work.title} — Recensione | EdArEview`,
+    title: `${work.title} — Recensione`,
     description,
-    openGraph: cover ? { images: [{ url: cover }] } : undefined,
+    openGraph: {
+      title: `${work.title} — Recensione`,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: work.title }],
+    },
   }
 }
 

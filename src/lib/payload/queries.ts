@@ -1,5 +1,13 @@
+import type { Where } from 'payload'
+
 import type { MediaType } from '@/lib/media-types'
-import type { MediaWork, Review, SiteSetting } from '@/payload-types'
+import {
+  REVIEWS_PAGE_SIZE,
+  TYPE_LISTING_FETCH_LIMIT,
+  type ReviewFilters,
+  type ReviewSort,
+} from '@/lib/review-filters'
+import type { MediaWork, Review, SiteSetting, Tag } from '@/payload-types'
 
 import { getPayloadClient } from './client'
 
@@ -7,6 +15,56 @@ const publishedReviewWhere = {
   status: {
     equals: 'published' as const,
   },
+}
+
+function sortForReviewFilters(sort: ReviewSort = 'date'): string {
+  switch (sort) {
+    case 'rating':
+      return '-rating'
+    case 'title':
+      return 'title'
+    default:
+      return '-publishedAt'
+  }
+}
+
+async function resolveTagId(slug: string): Promise<number | null> {
+  const payload = await getPayloadClient()
+  const result = await payload.find({
+    collection: 'tags',
+    where: { slug: { equals: slug } },
+    limit: 1,
+  })
+
+  return result.docs[0]?.id ?? null
+}
+
+function buildReviewWhere(filters: ReviewFilters): Where {
+  const and: Where[] = [publishedReviewWhere]
+
+  if (filters.minRating && filters.minRating > 0) {
+    and.push({ rating: { greater_than_equal: filters.minRating } })
+  }
+
+  if (filters.status) {
+    and.push({ watchStatus: { equals: filters.status } })
+  }
+
+  if (filters.mediaType) {
+    and.push({ 'mediaWork.mediaType': { equals: filters.mediaType } })
+  }
+
+  if (filters.year && filters.year > 0) {
+    and.push({ 'mediaWork.year': { equals: filters.year } })
+  }
+
+  if (filters.q) {
+    and.push({
+      or: [{ title: { contains: filters.q } }, { 'mediaWork.title': { contains: filters.q } }],
+    })
+  }
+
+  return and.length === 1 ? and[0]! : { and }
 }
 
 export async function getSiteSettings(): Promise<SiteSetting | null> {
@@ -23,39 +81,54 @@ export async function getSiteSettings(): Promise<SiteSetting | null> {
 }
 
 export async function getPublishedReviews(limit = 6, page = 1) {
+  return searchReviews({ limit, page, sort: 'date' })
+}
+
+export async function searchReviews(filters: ReviewFilters = {}) {
   const payload = await getPayloadClient()
+  const page = filters.page && filters.page > 0 ? filters.page : 1
+  const limit = filters.limit ?? REVIEWS_PAGE_SIZE
+  let where = buildReviewWhere(filters)
+
+  if (filters.tag) {
+    const tagId = await resolveTagId(filters.tag)
+    if (!tagId) {
+      return {
+        docs: [] as Review[],
+        totalDocs: 0,
+        limit,
+        totalPages: 0,
+        page,
+        pagingCounter: 0,
+        hasPrevPage: false,
+        hasNextPage: false,
+        prevPage: null as number | null,
+        nextPage: null as number | null,
+      }
+    }
+
+    where = {
+      and: [where, { tags: { contains: tagId } }],
+    }
+  }
 
   return payload.find({
     collection: 'reviews',
-    where: publishedReviewWhere,
-    sort: '-publishedAt',
+    where,
+    sort: sortForReviewFilters(filters.sort),
     depth: 2,
     limit,
     page,
   })
 }
 
-export async function getReviewsByMediaType(mediaType: MediaType, limit = 50) {
-  const payload = await getPayloadClient()
-
-  const result = await payload.find({
-    collection: 'reviews',
-    where: publishedReviewWhere,
-    sort: '-publishedAt',
-    depth: 2,
-    limit: 100,
+export async function getReviewsByMediaType(mediaType: MediaType, filters: ReviewFilters = {}) {
+  return searchReviews({
+    ...filters,
+    mediaType,
+    limit: filters.limit ?? TYPE_LISTING_FETCH_LIMIT,
+    page: 1,
   })
-
-  const reviews = result.docs.filter((review) => {
-    const work = review.mediaWork
-    return typeof work === 'object' && work !== null && work.mediaType === mediaType
-  })
-
-  return {
-    ...result,
-    docs: reviews.slice(0, limit),
-    totalDocs: reviews.length,
-  }
 }
 
 export async function getUniqueWorksFromReviews(reviews: Review[]): Promise<
@@ -76,6 +149,53 @@ export async function getUniqueWorksFromReviews(reviews: Review[]): Promise<
   }
 
   return items
+}
+
+export async function getPopularTags(limit = 12): Promise<Tag[]> {
+  const payload = await getPayloadClient()
+  const reviews = await payload.find({
+    collection: 'reviews',
+    where: publishedReviewWhere,
+    depth: 1,
+    limit: TYPE_LISTING_FETCH_LIMIT,
+    select: {
+      tags: true,
+    },
+  })
+
+  const counts = new Map<number, { tag: Tag; count: number }>()
+
+  for (const review of reviews.docs) {
+    for (const tag of review.tags ?? []) {
+      if (typeof tag !== 'object' || tag === null) continue
+      const existing = counts.get(tag.id)
+      if (existing) {
+        existing.count += 1
+      } else {
+        counts.set(tag.id, { tag, count: 1 })
+      }
+    }
+  }
+
+  return [...counts.values()]
+    .sort((a, b) => b.count - a.count || a.tag.name.localeCompare(b.tag.name))
+    .slice(0, limit)
+    .map((entry) => entry.tag)
+}
+
+export async function getAllPublishedMediaWorks(): Promise<MediaWork[]> {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: 'media-works',
+    where: {
+      status: { equals: 'published' },
+    },
+    limit: 1000,
+    depth: 0,
+  })
+
+  return result.docs
 }
 
 export async function getMediaWorkBySlug(
