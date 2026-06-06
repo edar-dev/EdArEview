@@ -1,10 +1,10 @@
 # EdArEview — Guida per Agenti AI
 
-**Ultimo aggiornamento:** Fase 0 (pianificazione).
+**Ultimo aggiornamento:** Fase 6 (go-live).
 
 ## Stack
 
-- **Frontend + CMS**: Next.js 15 + Payload CMS 3 (App Router)
+- **Frontend + CMS**: Next.js 16 + Payload CMS 3.85 (App Router)
 - **Database**: Neon Postgres via Vercel Marketplace (`@payloadcms/db-postgres`)
 - **Media**: Vercel Blob
 - **Deploy**: Vercel (team `edar-dev's projects`)
@@ -28,13 +28,19 @@ pnpm build                  # payload migrate && next build
 
 ## Variabili d'ambiente
 
-Vedi `env.json.example` (o `.env.example`). Minimo:
+Vedi `.env.example`. Minimo:
 
 - `DATABASE_URL` — Neon (auto da Vercel Marketplace)
 - `PAYLOAD_SECRET`
 - `BLOB_READ_WRITE_TOKEN`
+- `NEXT_PUBLIC_SITE_URL` — URL canonico (prod: `https://edareview.vercel.app`)
 - `TMDB_API_KEY`
 - `TWITCH_CLIENT_ID` / `TWITCH_CLIENT_SECRET` (IGDB)
+
+## Produzione
+
+- URL: https://edareview.vercel.app
+- Checklist: [docs/GO-LIVE.md](docs/GO-LIVE.md)
 
 ## MCP
 

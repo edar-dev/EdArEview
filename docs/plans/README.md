@@ -4,16 +4,18 @@ Indice dei piani operativi. La panoramica di prodotto resta in [ROADMAP.md](../R
 
 ## Ordine di esecuzione
 
-| # | Piano | Branch suggerito | Durata | Dipende da |
-|---|-------|------------------|--------|------------|
-| 0–1 | [Foundation](phase-0-1-foundation.md) | `chore/foundation` | 1–1.5 gg | — |
-| 2 | [CMS schema & admin](phase-2-cms-schema.md) | `feat/cms-schema` | 1–2 gg | 0–1 |
-| 4 | [Frontend MVP](phase-4-frontend-mvp.md) | `feat/frontend-mvp` | 2–3 gg | 2 |
-| 3 | [Metadata APIs](phase-3-metadata-apis.md) | `feat/metadata-import` | 2 gg | 2 |
-| 5 | [Discoverability](phase-5-discoverability.md) | `feat/search-seo` | 1–2 gg | 4 |
-| 6 | [Production](phase-6-production.md) | `chore/go-live` | ½ gg | 5 |
+| # | Piano | Stato | Branch | Durata |
+|---|-------|-------|--------|--------|
+| 0–1 | [Foundation](phase-0-1-foundation.md) | ✅ | `chore/foundation` | 1–1.5 gg |
+| 2 | [CMS schema & admin](phase-2-cms-schema.md) | ✅ | `feat/cms-schema` | 1–2 gg |
+| 3 | [Metadata APIs](phase-3-metadata-apis.md) | ✅ | `feat/metadata-import` | 2 gg |
+| 4 | [Frontend MVP](phase-4-frontend-mvp.md) | ✅ | `feat/frontend-mvp` | 2–3 gg |
+| 5 | [Discoverability](phase-5-discoverability.md) | ✅ | `feat/search-seo` | 1–2 gg |
+| 6 | [Production](phase-6-production.md) | ✅ | `chore/go-live` | ½ gg |
 
 > **Nota ordine:** Fase 4 prima di Fase 3 — il sito pubblico è utilizzabile anche con catalogo inserito manualmente da admin; l'import API accelera ma non blocca.
+
+**Live:** https://edareview.vercel.app — checklist [GO-LIVE.md](../GO-LIVE.md)
 
 ## Percorsi alternativi
 

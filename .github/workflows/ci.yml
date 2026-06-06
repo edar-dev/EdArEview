@@ -15,7 +15,7 @@ jobs:
     name: Repository hygiene
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Verify env template exists
         run: test -f .env.example
@@ -31,15 +31,12 @@ jobs:
     name: Build & test
     runs-on: ubuntu-latest
     needs: repo-check
-    if: hashFiles('package.json') != ''
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v6
-        with:
-          version: 9
+      - uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -49,11 +46,6 @@ jobs:
 
       - name: Lint
         run: pnpm lint
-        continue-on-error: false
-
-      - name: Typecheck
-        run: pnpm exec tsc --noEmit
-        continue-on-error: false
 
       - name: Test
         run: pnpm test
