@@ -4,6 +4,7 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 
+import { EditorialLists } from './collections/EditorialLists'
 import { Media } from './collections/Media'
 import { MediaWorks } from './collections/MediaWorks'
 import { Reviews } from './collections/Reviews'
@@ -62,7 +63,7 @@ export default buildConfig({
     },
     push: process.env.NODE_ENV === 'development',
   }),
-  collections: [Users, MediaWorks, Reviews, Tags, Media],
+  collections: [Users, MediaWorks, Reviews, EditorialLists, Tags, Media],
   cors: [
     serverURL,
     'https://edareview.vercel.app',

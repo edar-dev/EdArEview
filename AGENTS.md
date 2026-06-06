@@ -1,6 +1,6 @@
 # EdArEview — Guida per Agenti AI
 
-**Ultimo aggiornamento:** Fase 6 (go-live).
+**Ultimo aggiornamento:** Fase 7 (RSS, liste editoriali, statistiche).
 
 ## Stack
 

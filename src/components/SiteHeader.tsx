@@ -24,6 +24,18 @@ export function SiteHeader() {
           ))}
           <Link
             className="text-muted-foreground hover:text-foreground transition-colors"
+            href="/lists"
+          >
+            Liste
+          </Link>
+          <Link
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            href="/stats"
+          >
+            Stats
+          </Link>
+          <Link
+            className="text-muted-foreground hover:text-foreground transition-colors"
             href="/reviews"
           >
             Recensioni

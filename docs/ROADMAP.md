@@ -256,6 +256,9 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 7 — Backlog (post-MVP)
 
+- [x] Feed RSS recensioni (`/feed.xml`)
+- [x] Liste editoriali (`/lists`, collection `editorial-lists`)
+- [x] Statistiche catalogo (`/stats`)
 - [ ] Dominio custom (Vercel + aggiornamento `NEXT_PUBLIC_SITE_URL`)
 - [ ] Liste personali ("Da vedere", "Top 10 2026")
 - [ ] Confronto opere simili

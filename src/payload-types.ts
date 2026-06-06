@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     'media-works': MediaWork;
     reviews: Review;
+    'editorial-lists': EditorialList;
     tags: Tag;
     media: Media;
     'payload-kv': PayloadKv;
@@ -82,6 +83,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     'media-works': MediaWorksSelect<false> | MediaWorksSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    'editorial-lists': EditorialListsSelect<false> | EditorialListsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -345,6 +347,32 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "editorial-lists".
+ */
+export interface EditorialList {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Breve intro mostrata in archivio e pagina lista.
+   */
+  description?: string | null;
+  /**
+   * Recensioni incluse nella lista, trascinabili per ordinare.
+   */
+  reviews?: (number | Review)[] | null;
+  featured?: boolean | null;
+  status: 'draft' | 'published';
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -378,6 +406,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reviews';
         value: number | Review;
+      } | null)
+    | ({
+        relationTo: 'editorial-lists';
+        value: number | EditorialList;
       } | null)
     | ({
         relationTo: 'tags';
@@ -491,6 +523,22 @@ export interface ReviewsSelect<T extends boolean = true> {
   watchStatus?: T;
   hasSpoilers?: T;
   tags?: T;
+  status?: T;
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "editorial-lists_select".
+ */
+export interface EditorialListsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  description?: T;
+  reviews?: T;
+  featured?: T;
   status?: T;
   publishedAt?: T;
   updatedAt?: T;

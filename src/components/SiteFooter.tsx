@@ -37,6 +37,20 @@ export function SiteFooter({ settings }: { settings: SiteSetting | null }) {
             </ul>
           </div>
         )}
+
+        <div>
+          <h2 className="mb-3 text-sm font-semibold">Feed</h2>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link
+                className="text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                href="/feed.xml"
+              >
+                RSS recensioni
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div className="border-border text-muted-foreground border-t py-4 text-center text-xs">
