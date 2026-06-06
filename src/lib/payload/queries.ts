@@ -2,6 +2,7 @@ import type { Where } from 'payload'
 
 import type { MediaType } from '@/lib/media-types'
 import { computeReviewStatistics, filterReviewsByPublishedYear } from '@/lib/review-stats'
+import { findSimilarReviews } from '@/lib/similar-reviews'
 import {
   REVIEWS_PAGE_SIZE,
   TYPE_LISTING_FETCH_LIMIT,
@@ -439,4 +440,19 @@ export async function getReviewStatistics(year?: number | null) {
     ...stats,
     availablePublishedYears: allStats.availablePublishedYears,
   }
+}
+
+export async function getSimilarReviewsForWork(
+  work: MediaWork,
+  review: Review | null,
+  limit = 4,
+): Promise<Review[]> {
+  const candidates = await getAllPublishedReviewsForStats()
+
+  return findSimilarReviews({
+    currentWork: work,
+    currentReview: review,
+    candidates,
+    limit,
+  }).map((match) => match.review)
 }

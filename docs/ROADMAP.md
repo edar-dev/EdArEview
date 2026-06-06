@@ -254,18 +254,24 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 - [ ] Dominio custom — **rinviato** (resta su `edareview.vercel.app`; vedi GO-LIVE quando serve)
 - [ ] (Opzionale) branch Neon per preview DB allineato alle PR
 
-### Fase 7 — Backlog (post-MVP)
+### Fase 7 — RSS, liste & statistiche
 
 - [x] Feed RSS recensioni (`/feed.xml`)
 - [x] Liste editoriali (`/lists`, collection `editorial-lists`)
 - [x] Statistiche catalogo (`/stats`)
+
+### Fase 8 — Scoperta & observability
+
+- [x] Opere simili su pagina recensione (tag, generi, voto, tipo)
+- [x] Sentry (`SENTRY_DSN` opzionale, source maps con auth token)
+
+### Backlog
+
 - [ ] Dominio custom (Vercel + aggiornamento `NEXT_PUBLIC_SITE_URL`)
-- [ ] Liste personali ("Da vedere", "Top 10 2026")
-- [ ] Confronto opere simili
-- [ ] RSS / newsletter
+- [ ] Liste personali / watchlist ("Da vedere", "In corso")
+- [ ] Newsletter
 - [ ] i18n IT/EN
 - [ ] Integrazione MAL, Steam, Letterboxd
-- [ ] Statistiche (opere per anno, media voti per genere)
 - [ ] Commenti (Giscus) — solo se serve interazione
 - [ ] Disabilitare scale-to-zero Neon (piano Launch) se cold start fastidioso
 

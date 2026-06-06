@@ -1,6 +1,6 @@
 # EdArEview — Guida per Agenti AI
 
-**Ultimo aggiornamento:** Fase 7 (RSS, liste editoriali, statistiche).
+**Ultimo aggiornamento:** Fase 8 (opere simili, Sentry).
 
 ## Stack
 
@@ -36,6 +36,7 @@ Vedi `.env.example`. Minimo:
 - `NEXT_PUBLIC_SITE_URL` — URL canonico (prod: `https://edareview.vercel.app`)
 - `TMDB_API_KEY`
 - `TWITCH_CLIENT_ID` / `TWITCH_CLIENT_SECRET` (IGDB)
+- `SENTRY_DSN` — opzionale (error monitoring, Fase 8)
 
 ## Produzione
 
