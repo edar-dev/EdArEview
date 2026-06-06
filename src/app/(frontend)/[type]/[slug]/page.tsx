@@ -4,12 +4,13 @@ import { notFound } from 'next/navigation'
 import { MediaWorkHeader } from '@/components/MediaWorkHeader'
 import { RatingBadge } from '@/components/RatingBadge'
 import { RichText } from '@/components/RichText'
+import { SimilarReviewsSection } from '@/components/SimilarReviewsSection'
 import { SpoilerBanner } from '@/components/SpoilerBanner'
 import { formatPublishedDate } from '@/lib/format-date'
 import { isMediaTypeRoute, routeToMediaType } from '@/lib/media-types'
 import { buildOgImageUrl } from '@/lib/og'
 import { getCoverUrl } from '@/lib/payload/cover'
-import { getMediaWorkBySlug } from '@/lib/payload/queries'
+import { getMediaWorkBySlug, getSimilarReviewsForWork } from '@/lib/payload/queries'
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
 
 type PageProps = {
@@ -75,6 +76,7 @@ export default async function MediaWorkDetailPage({ params }: PageProps) {
   if (!result) notFound()
 
   const { work, review } = result
+  const similarReviews = await getSimilarReviewsForWork(work, review)
 
   const reviewBody = review ? (
     review.hasSpoilers ? (
@@ -115,6 +117,8 @@ export default async function MediaWorkDetailPage({ params }: PageProps) {
           </p>
         )}
       </section>
+
+      <SimilarReviewsSection reviews={similarReviews} work={work} />
     </main>
   )
 }

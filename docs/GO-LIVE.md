@@ -17,8 +17,16 @@
 | `TWITCH_CLIENT_ID` / `TWITCH_CLIENT_SECRET` | OK (Production + Development) |
 | `NEXT_PUBLIC_SITE_URL` | OK → `https://edareview.vercel.app` |
 | `NEXT_PUBLIC_SERVER_URL` | OK (fallback legacy) |
+| `SENTRY_DSN` | Da configurare (Fase 8 — opzionale) |
 
 Preview: `PAYLOAD_SECRET` su **tutte** le branch Preview (non più per-branch).
+
+### Sentry (Fase 8)
+
+1. Crea progetto su [sentry.io](https://sentry.io) → platform **Next.js**
+2. Vercel Production → `SENTRY_DSN` (e opzionale `NEXT_PUBLIC_SENTRY_DSN`)
+3. Per source maps leggibili: `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN`
+4. Redeploy production
 
 ---
 
