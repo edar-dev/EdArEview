@@ -238,11 +238,11 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 5 — Ricerca, filtri, polish (1–2 giorni)
 
-- [ ] Filtri: tipo, voto, anno, stato, tag
-- [ ] Ricerca full-text (Postgres `tsvector` o Payload search plugin)
-- [ ] Paginazione e ordinamento
-- [ ] OG images (`/api/og`)
-- [ ] `sitemap.xml` + `robots.txt`
+- [x] Filtri: tipo, voto, anno, stato, tag
+- [x] Ricerca full-text (Payload `contains` — MVP)
+- [x] Paginazione e ordinamento
+- [x] OG images (`/api/og`)
+- [x] `sitemap.xml` + `robots.txt`
 
 ### Fase 6 — Produzione (½ giornata)
 
