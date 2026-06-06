@@ -216,11 +216,12 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 
 ### Fase 3 — Integrazione metadata (2 giorni)
 
-- [ ] Client `lib/metadata/anilist.ts`
-- [ ] Client `lib/metadata/tmdb.ts`
-- [ ] Client `lib/metadata/igdb.ts` (OAuth token cache)
-- [ ] Field component admin "Importa da catalogo"
-- [ ] Cache metadata in campo JSON su `MediaWork`
+- [x] Client `lib/metadata/anilist.ts`
+- [x] Client `lib/metadata/tmdb.ts`
+- [x] Client `lib/metadata/igdb.ts` (OAuth token cache)
+- [x] Route `/api/metadata/search` (auth admin Payload)
+- [x] Field component admin "Import from catalog"
+- [x] Cache metadata in campo JSON su `MediaWork`
 
 **Deliverable:** import cover + metadati in un click da admin.
 

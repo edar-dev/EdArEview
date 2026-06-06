@@ -5,6 +5,9 @@ declare global {
       DATABASE_URL: string
       NEXT_PUBLIC_SERVER_URL: string
       VERCEL_PROJECT_PRODUCTION_URL: string
+      TMDB_API_KEY?: string
+      TWITCH_CLIENT_ID?: string
+      TWITCH_CLIENT_SECRET?: string
     }
   }
 }
