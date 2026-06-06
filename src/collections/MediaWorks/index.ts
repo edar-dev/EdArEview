@@ -35,6 +35,7 @@ export const MediaWorks: CollectionConfig = {
     mediaType: true,
     coverUrl: true,
     year: true,
+    status: true,
   },
   fields: [
     {

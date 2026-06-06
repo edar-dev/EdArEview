@@ -243,7 +243,8 @@ export async function getUniqueWorksFromReviews(reviews: Review[]): Promise<
 
   for (const review of reviews) {
     const work = review.mediaWork
-    if (typeof work !== 'object' || work === null || work.status !== 'published') continue
+    if (typeof work !== 'object' || work === null) continue
+    if (work.status && work.status !== 'published') continue
     if (seen.has(work.id)) continue
     seen.add(work.id)
     items.push({ work, review })
