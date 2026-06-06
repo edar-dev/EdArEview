@@ -1,13 +1,14 @@
 import type { Where } from 'payload'
 
 import type { MediaType } from '@/lib/media-types'
+import { computeReviewStatistics, filterReviewsByPublishedYear } from '@/lib/review-stats'
 import {
   REVIEWS_PAGE_SIZE,
   TYPE_LISTING_FETCH_LIMIT,
   type ReviewFilters,
   type ReviewSort,
 } from '@/lib/review-filters'
-import type { MediaWork, Review, SiteSetting, Tag } from '@/payload-types'
+import type { MediaWork, EditorialList, Review, SiteSetting, Tag } from '@/payload-types'
 
 import { getPayloadClient } from './client'
 
@@ -335,5 +336,107 @@ export async function getMediaWorkBySlug(
   return {
     work,
     review: reviews.docs[0] ?? null,
+  }
+}
+
+const publishedListWhere = {
+  status: {
+    equals: 'published' as const,
+  },
+}
+
+export async function getPublishedEditorialLists(limit = 50) {
+  const payload = await getPayloadClient()
+
+  return payload.find({
+    collection: 'editorial-lists',
+    where: publishedListWhere,
+    sort: '-publishedAt',
+    depth: 1,
+    limit,
+  })
+}
+
+export async function getFeaturedEditorialLists(limit = 3) {
+  const payload = await getPayloadClient()
+
+  return payload.find({
+    collection: 'editorial-lists',
+    where: {
+      and: [publishedListWhere, { featured: { equals: true } }],
+    },
+    sort: '-publishedAt',
+    depth: 1,
+    limit,
+  })
+}
+
+export async function getEditorialListBySlug(slug: string): Promise<EditorialList | null> {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: 'editorial-lists',
+    where: {
+      and: [publishedListWhere, { slug: { equals: slug } }],
+    },
+    depth: 2,
+    limit: 1,
+  })
+
+  return result.docs[0] ?? null
+}
+
+export async function getAllPublishedEditorialListSlugs(): Promise<Array<{ slug: string }>> {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: 'editorial-lists',
+    where: publishedListWhere,
+    depth: 0,
+    limit: 1000,
+    select: {
+      slug: true,
+    },
+  })
+
+  return result.docs
+    .filter((list) => typeof list.slug === 'string')
+    .map((list) => ({ slug: list.slug as string }))
+}
+
+export function resolveReviewsFromEditorialList(list: EditorialList): Review[] {
+  return (list.reviews ?? []).filter(
+    (review): review is Review =>
+      typeof review === 'object' && review !== null && review.status === 'published',
+  )
+}
+
+export async function getReviewsForRssFeed(limit = 30) {
+  return searchReviews({ limit, page: 1, sort: 'date' })
+}
+
+export async function getAllPublishedReviewsForStats() {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: 'reviews',
+    where: publishedReviewWhere,
+    depth: 2,
+    limit: 1000,
+    sort: '-publishedAt',
+  })
+
+  return result.docs
+}
+
+export async function getReviewStatistics(year?: number | null) {
+  const reviews = await getAllPublishedReviewsForStats()
+  const allStats = computeReviewStatistics(reviews)
+  const filtered = filterReviewsByPublishedYear(reviews, year ?? null)
+  const stats = computeReviewStatistics(filtered)
+
+  return {
+    ...stats,
+    availablePublishedYears: allStats.availablePublishedYears,
   }
 }

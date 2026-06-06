@@ -12,6 +12,7 @@ Indice dei piani operativi. La panoramica di prodotto resta in [ROADMAP.md](../R
 | 4 | [Frontend MVP](phase-4-frontend-mvp.md) | ✅ | `feat/frontend-mvp` | 2–3 gg |
 | 5 | [Discoverability](phase-5-discoverability.md) | ✅ | `feat/search-seo` | 1–2 gg |
 | 6 | [Production](phase-6-production.md) | ✅ | `chore/go-live` | ½ gg |
+| 7 | [RSS, liste & stats](phase-7-editorial-stats.md) | ✅ | `feat/phase-7-rss-lists-stats` | 1–2 gg |
 
 > **Nota ordine:** Fase 4 prima di Fase 3 — il sito pubblico è utilizzabile anche con catalogo inserito manualmente da admin; l'import API accelera ma non blocca.
 

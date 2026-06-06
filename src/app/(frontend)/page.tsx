@@ -1,17 +1,20 @@
 import Link from 'next/link'
 
 import { ReviewCard } from '@/components/ReviewCard'
+import { ListCard } from '@/components/ListCard'
 import { RichText } from '@/components/RichText'
 import { MEDIA_TYPE_NAV } from '@/lib/media-types'
-import { getPublishedReviews, getSiteSettings } from '@/lib/payload/queries'
+import { getFeaturedEditorialLists, getPublishedReviews, getSiteSettings } from '@/lib/payload/queries'
 
 export default async function HomePage() {
-  const [settings, reviewsResult] = await Promise.all([
+  const [settings, reviewsResult, featuredListsResult] = await Promise.all([
     getSiteSettings(),
     getPublishedReviews(6),
+    getFeaturedEditorialLists(3),
   ])
 
   const reviews = reviewsResult.docs
+  const featuredLists = featuredListsResult.docs
 
   return (
     <main className="container py-10 md:py-16">
@@ -42,6 +45,22 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {featuredLists.length > 0 && (
+        <section className="mt-12">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <h2 className="text-2xl font-semibold">Liste in evidenza</h2>
+            <Link className="text-primary text-sm underline-offset-4 hover:underline" href="/lists">
+              Vedi tutte
+            </Link>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {featuredLists.map((list) => (
+              <ListCard key={list.id} list={list} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mt-12">
         <div className="mb-6 flex items-end justify-between gap-4">

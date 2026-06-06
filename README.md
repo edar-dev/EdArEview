@@ -17,7 +17,7 @@ Catalogo personale e recensioni di manga, anime, serie TV, videogiochi e altri m
 
 ## Stato
 
-MVP pubblico live (Fasi 0–6). URL canonico: `https://edareview.vercel.app` (dominio custom rinviato).
+MVP pubblico live (Fasi 0–7). URL canonico: `https://edareview.vercel.app`.
 
 - Panoramica: [docs/ROADMAP.md](docs/ROADMAP.md)
 - **Piani implementazione:** [docs/plans/README.md](docs/plans/README.md)
