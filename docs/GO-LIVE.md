@@ -17,20 +17,19 @@
 | `TWITCH_CLIENT_ID` / `TWITCH_CLIENT_SECRET` | OK (Production + Development) |
 | `NEXT_PUBLIC_SITE_URL` | OK → `https://edareview.vercel.app` |
 | `NEXT_PUBLIC_SERVER_URL` | OK (fallback legacy) |
-| `SENTRY_DSN` | Da configurare (Fase 8 — opzionale) |
+| `SENTRY_DSN` | OK (Production) |
+| `NEXT_PUBLIC_SENTRY_DSN` | OK (Production) |
+| `SENTRY_ORG` | OK → `edoardo-arlati` |
+| `SENTRY_PROJECT` | OK → `edareview` |
+| `SENTRY_AUTH_TOKEN` | OK (Production — source maps) |
 
 Preview: `PAYLOAD_SECRET` su **tutte** le branch Preview (non più per-branch).
 
-### Sentry (Fase 8)
+### Sentry (Fase 8) — configurato
 
-Org: **edoardo-arlati** (region EU: `https://de.sentry.io`)
-
-1. Sentry → Create project **EdArEview** (platform Next.js) — richiede permesso admin org
-2. Copia il DSN del progetto
-3. Vercel Production → `SENTRY_DSN` (+ opzionale `NEXT_PUBLIC_SENTRY_DSN`)
-4. Vercel Production → `SENTRY_ORG=edoardo-arlati`, `SENTRY_PROJECT=<slug-progetto>`
-5. Per source maps: `SENTRY_AUTH_TOKEN` (token da Sentry → Settings → Auth Tokens)
-6. Redeploy production
+- Progetto: **edareview** su org **edoardo-arlati** (EU)
+- Env Production su Vercel: `SENTRY_DSN`, `NEXT_PUBLIC_SENTRY_DSN`, `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN`
+- Dopo ogni modifica env: redeploy production
 
 ---
 
