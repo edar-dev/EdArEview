@@ -1,6 +1,6 @@
 export type MediaType = 'anime' | 'manga' | 'tv' | 'movie' | 'game'
 
-export type ExternalSource = 'anilist' | 'tmdb' | 'igdb'
+export type ExternalSource = 'anilist' | 'tmdb' | 'igdb' | 'mal' | 'steam' | 'letterboxd'
 
 export interface MetadataSearchResult {
   externalSource: ExternalSource

@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublishedStatus } from '../../access/authenticatedOrPublishedStatus'
 import { populatePublishedAtOnPublish } from '../hooks/populatePublishedAtOnPublish'
 import { revalidateReview, revalidateReviewDelete } from '../hooks/revalidateReview'
+import { updateReviewSearchVector } from '../hooks/updateReviewSearchVector'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
@@ -112,7 +113,7 @@ export const Reviews: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [populatePublishedAtOnPublish],
-    afterChange: [revalidateReview],
+    afterChange: [updateReviewSearchVector, revalidateReview],
     afterDelete: [revalidateReviewDelete],
   },
   timestamps: true,

@@ -24,6 +24,24 @@ export function SiteHeader() {
           ))}
           <Link
             className="text-muted-foreground hover:text-foreground transition-colors"
+            href="/watchlist"
+          >
+            Watchlist
+          </Link>
+          <Link
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            href="/compare"
+          >
+            Confronta
+          </Link>
+          <Link
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            href="/about"
+          >
+            About
+          </Link>
+          <Link
+            className="text-muted-foreground hover:text-foreground transition-colors"
             href="/lists"
           >
             Liste

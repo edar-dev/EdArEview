@@ -110,7 +110,8 @@ Cover e screenshot personali. Metadati API (AniList, TMDB, IGDB) forniscono URL 
 ```
 MediaWork (catalogo)
 ├── mediaType: anime | manga | tv | movie | game
-├── externalSource: anilist | tmdb | igdb
+├── externalSource: anilist | tmdb | igdb | mal | steam | letterboxd | manual
+├── watchStatus (opzionale, per watchlist pubblica)
 ├── externalId (unique per source)
 ├── title, titleOriginal, slug
 ├── year, genres[], coverUrl
@@ -129,7 +130,7 @@ Tag
 ├── name, slug
 
 SiteSettings (global)
-├── bio, avatar, social links, homepage copy
+├── bio, aboutPage (richText), avatar, social links, homepage copy
 ```
 
 **Flusso admin:** cerca opera → import da API → crea `MediaWork` precompilato → scrivi `Review` → pubblica.
@@ -140,9 +141,9 @@ SiteSettings (global)
 
 | Tipo | API | Auth |
 |------|-----|------|
-| Anime / Manga | [AniList GraphQL](https://docs.anilist.co/) | Nessuna (rate limit) |
-| Film / Serie TV | [TMDB](https://developer.themoviedb.org/) | API key gratuita |
-| Videogiochi | [IGDB](https://api-docs.igdb.com/) | Twitch OAuth2 |
+| Anime / Manga | [AniList GraphQL](https://docs.anilist.co/), [Jikan/MAL](https://docs.api.jikan.moe/) | Nessuna (rate limit) |
+| Film / Serie TV | [TMDB](https://developer.themoviedb.org/), Letterboxd autocomplete | API key TMDB |
+| Videogiochi | [IGDB](https://api-docs.igdb.com/), Steam store search | Twitch OAuth2 (IGDB) |
 
 Route server-side: `/api/metadata/search`, `/api/metadata/import`. Chiavi solo in env Vercel.
 
@@ -173,6 +174,9 @@ Dettaglio operativo per fase in [`docs/plans/`](plans/):
 | 4 | [phase-4-frontend-mvp.md](plans/phase-4-frontend-mvp.md) | `feat/frontend-mvp` |
 | 5 | [phase-5-discoverability.md](plans/phase-5-discoverability.md) | `feat/search-seo` |
 | 6 | [phase-6-production.md](plans/phase-6-production.md) | `chore/go-live` |
+| 7 | [phase-7-editorial-stats.md](plans/phase-7-editorial-stats.md) | `feat/phase-7-rss-lists-stats` |
+| 8 | [phase-8-similar-sentry.md](plans/phase-8-similar-sentry.md) | `feat/phase-8-similar-sentry` |
+| 9 | [phase-9-discovery-admin.md](plans/phase-9-discovery-admin.md) | `feat/phase-9-discovery-admin` |
 
 Panoramica Gantt e dipendenze: [plans/OVERVIEW.md](plans/OVERVIEW.md)  
 Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
@@ -265,13 +269,19 @@ Playbook operativo: [AGENT-PLAYBOOK.md](AGENT-PLAYBOOK.md)
 - [x] Opere simili su pagina recensione (tag, generi, voto, tipo)
 - [x] Sentry (`SENTRY_DSN` opzionale, source maps con auth token)
 
+### Fase 9 — Discovery & admin
+
+- [x] Import metadata MAL, Steam, Letterboxd (admin)
+- [x] Watchlist pubblica (`/watchlist`, `watchStatus` su MediaWork)
+- [x] Pagina About (`/about`, `SiteSettings.aboutPage`)
+- [x] Ricerca full-text Postgres su recensioni
+- [x] Confronto opere (`/compare`)
+
 ### Backlog
 
 - [ ] Dominio custom (Vercel + aggiornamento `NEXT_PUBLIC_SITE_URL`)
-- [ ] Liste personali / watchlist ("Da vedere", "In corso")
 - [ ] Newsletter
 - [ ] i18n IT/EN
-- [ ] Integrazione MAL, Steam, Letterboxd
 - [ ] Commenti (Giscus) — solo se serve interazione
 - [ ] Disabilitare scale-to-zero Neon (piano Launch) se cold start fastidioso
 

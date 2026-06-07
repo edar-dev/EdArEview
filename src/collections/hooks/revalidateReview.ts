@@ -34,6 +34,9 @@ const revalidateReviewPaths = async (
   revalidatePath('/')
   revalidatePath('/reviews')
   revalidatePath('/stats')
+  revalidatePath('/watchlist')
+  revalidatePath('/compare')
+  revalidatePath('/about')
   revalidatePath('/feed.xml')
 
   const mediaWorkRef = review.mediaWork
