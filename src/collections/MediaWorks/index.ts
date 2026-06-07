@@ -80,8 +80,11 @@ export const MediaWorks: CollectionConfig = {
       options: [
         { label: 'Manual', value: 'manual' },
         { label: 'AniList', value: 'anilist' },
+        { label: 'MyAnimeList', value: 'mal' },
         { label: 'TMDB', value: 'tmdb' },
+        { label: 'Letterboxd', value: 'letterboxd' },
         { label: 'IGDB', value: 'igdb' },
+        { label: 'Steam', value: 'steam' },
       ],
     },
     {
@@ -128,6 +131,21 @@ export const MediaWorks: CollectionConfig = {
       type: 'json',
       admin: {
         description: 'Raw metadata cache from external APIs (Fase 3).',
+      },
+    },
+    {
+      name: 'watchStatus',
+      type: 'select',
+      options: [
+        { label: 'Planned', value: 'planned' },
+        { label: 'Watching / Reading', value: 'watching' },
+        { label: 'Completed', value: 'completed' },
+        { label: 'Dropped', value: 'dropped' },
+        { label: 'On hold', value: 'on_hold' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description: 'Stato consumo pubblico (watchlist).',
       },
     },
     {

@@ -11,7 +11,10 @@ import {
 } from '@/lib/review-filters'
 import type { MediaWork, EditorialList, Review, SiteSetting, Tag } from '@/payload-types'
 
+import { parseWorkRef } from '@/lib/compare-works'
+
 import { getPayloadClient } from './client'
+import { searchReviewIdsByFullText } from './fulltext'
 
 const publishedReviewWhere = {
   status: {
@@ -104,6 +107,8 @@ async function buildReviewWhere(filters: ReviewFilters): Promise<Where> {
 
   if (filters.q) {
     const payload = await getPayloadClient()
+    const fullTextIds = await searchReviewIdsByFullText(filters.q)
+
     const titleMatchWorkWhere: Where[] = [
       { status: { equals: 'published' } },
       { title: { contains: filters.q } },
@@ -128,6 +133,14 @@ async function buildReviewWhere(filters: ReviewFilters): Promise<Where> {
     }
 
     const or: Where[] = [{ title: { contains: filters.q } }]
+
+    if (fullTextIds.length > 0) {
+      or.push(
+        fullTextIds.length === 1
+          ? { id: { equals: fullTextIds[0] } }
+          : { or: fullTextIds.map((id) => ({ id: { equals: id } })) },
+      )
+    }
     if (matchingWorkIds.length > 0) {
       if (matchingWorkIds.length === 1) {
         or.push({ mediaWork: { equals: matchingWorkIds[0] } })
@@ -455,4 +468,118 @@ export async function getSimilarReviewsForWork(
     candidates,
     limit,
   }).map((match) => match.review)
+}
+
+const WATCHLIST_STATUSES = ['planned', 'watching', 'on_hold'] as const
+
+export type WatchlistStatus = (typeof WATCHLIST_STATUSES)[number]
+
+export const WATCHLIST_LABELS: Record<WatchlistStatus, string> = {
+  planned: 'In programma',
+  watching: 'In corso',
+  on_hold: 'In pausa',
+}
+
+export type WatchlistItem = {
+  work: MediaWork
+  review: Review | null
+  effectiveStatus: WatchlistStatus
+}
+
+export async function getPublicWatchlist(): Promise<Record<WatchlistStatus, WatchlistItem[]>> {
+  const payload = await getPayloadClient()
+
+  const [worksResult, reviewsResult] = await Promise.all([
+    payload.find({
+      collection: 'media-works',
+      where: { status: { equals: 'published' } },
+      depth: 0,
+      limit: 1000,
+    }),
+    payload.find({
+      collection: 'reviews',
+      where: publishedReviewWhere,
+      depth: 1,
+      limit: 1000,
+      sort: '-publishedAt',
+    }),
+  ])
+
+  const reviewByWorkId = new Map<number, Review>()
+  for (const review of reviewsResult.docs) {
+    const workRef = review.mediaWork
+    const workId = typeof workRef === 'object' && workRef !== null ? workRef.id : workRef
+    if (typeof workId === 'number' && !reviewByWorkId.has(workId)) {
+      reviewByWorkId.set(workId, review)
+    }
+  }
+
+  const grouped: Record<WatchlistStatus, WatchlistItem[]> = {
+    planned: [],
+    watching: [],
+    on_hold: [],
+  }
+
+  for (const work of worksResult.docs) {
+    const review = reviewByWorkId.get(work.id) ?? null
+    const effectiveStatus = (review?.watchStatus ?? work.watchStatus) as
+      | WatchlistStatus
+      | null
+      | undefined
+
+    if (!effectiveStatus || !WATCHLIST_STATUSES.includes(effectiveStatus)) {
+      continue
+    }
+
+    grouped[effectiveStatus].push({ work, review, effectiveStatus })
+  }
+
+  for (const status of WATCHLIST_STATUSES) {
+    grouped[status].sort((a, b) => a.work.title.localeCompare(b.work.title, 'it'))
+  }
+
+  return grouped
+}
+
+export async function getComparePair(
+  refA: string | null | undefined,
+  refB: string | null | undefined,
+): Promise<{
+  workA: MediaWork
+  reviewA: Review | null
+  workB: MediaWork
+  reviewB: Review | null
+} | null> {
+  const parsedA = parseWorkRef(refA)
+  const parsedB = parseWorkRef(refB)
+
+  if (!parsedA || !parsedB) return null
+
+  const [resultA, resultB] = await Promise.all([
+    getMediaWorkBySlug(parsedA.type, parsedA.slug),
+    getMediaWorkBySlug(parsedB.type, parsedB.slug),
+  ])
+
+  if (!resultA || !resultB) return null
+
+  return {
+    workA: resultA.work,
+    reviewA: resultA.review,
+    workB: resultB.work,
+    reviewB: resultB.review,
+  }
+}
+
+export async function getAllPublishedWorksForCompareSelect(): Promise<MediaWork[]> {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: 'media-works',
+    where: { status: { equals: 'published' } },
+    sort: 'title',
+    limit: 1000,
+    depth: 0,
+  })
+
+  return result.docs
 }

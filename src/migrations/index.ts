@@ -1,6 +1,7 @@
 import * as migration_20260409_155721_initial from './20260409_155721_initial'
 import * as migration_20260605_211500_edareview_cms_schema from './20260605_211500_edareview_cms_schema'
 import * as migration_20260606_120000_editorial_lists from './20260606_120000_editorial_lists'
+import * as migration_20260607_120000_phase9_discovery_admin from './20260607_120000_phase9_discovery_admin'
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20260606_120000_editorial_lists.up,
     down: migration_20260606_120000_editorial_lists.down,
     name: '20260606_120000_editorial_lists',
+  },
+  {
+    up: migration_20260607_120000_phase9_discovery_admin.up,
+    down: migration_20260607_120000_phase9_discovery_admin.down,
+    name: '20260607_120000_phase9_discovery_admin',
   },
 ]

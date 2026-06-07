@@ -18,6 +18,8 @@ const revalidateMediaWorkPaths = (work: MediaWorkDoc) => {
   const route = mediaTypeToRoute(work.mediaType as 'anime' | 'manga' | 'tv' | 'movie' | 'game')
 
   revalidatePath('/')
+  revalidatePath('/watchlist')
+  revalidatePath('/compare')
   revalidatePath(`/${route}`)
   revalidatePath(`/${route}/${work.slug}`)
 }

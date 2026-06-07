@@ -164,7 +164,7 @@ export interface MediaWork {
   title: string;
   titleOriginal?: string | null;
   mediaType: 'anime' | 'manga' | 'tv' | 'movie' | 'game';
-  externalSource: 'manual' | 'anilist' | 'tmdb' | 'igdb';
+  externalSource: 'manual' | 'anilist' | 'mal' | 'tmdb' | 'letterboxd' | 'igdb' | 'steam';
   /**
    * Required for API-imported works (AniList, TMDB, IGDB).
    */
@@ -193,6 +193,10 @@ export interface MediaWork {
     | number
     | boolean
     | null;
+  /**
+   * Stato consumo pubblico (watchlist).
+   */
+  watchStatus?: ('planned' | 'watching' | 'completed' | 'dropped' | 'on_hold') | null;
   status: 'draft' | 'published';
   publishedAt?: string | null;
   /**
@@ -504,6 +508,7 @@ export interface MediaWorksSelect<T extends boolean = true> {
   coverUrl?: T;
   cover?: T;
   metadata?: T;
+  watchStatus?: T;
   status?: T;
   publishedAt?: T;
   generateSlug?: T;
@@ -720,6 +725,24 @@ export interface SiteSetting {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Contenuto lungo per la pagina /about (opzionale; altrimenti usa bio).
+   */
+  aboutPage?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -740,6 +763,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         id?: T;
       };
   homepageIntro?: T;
+  aboutPage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

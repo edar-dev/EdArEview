@@ -53,5 +53,13 @@ export const SiteSettings: GlobalConfig = {
       type: 'richText',
       label: 'Homepage intro',
     },
+    {
+      name: 'aboutPage',
+      type: 'richText',
+      label: 'About page',
+      admin: {
+        description: 'Contenuto lungo per la pagina /about (opzionale; altrimenti usa bio).',
+      },
+    },
   ],
 }

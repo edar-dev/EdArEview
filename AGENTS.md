@@ -1,6 +1,6 @@
 # EdArEview — Guida per Agenti AI
 
-**Ultimo aggiornamento:** Fase 8 (opere simili, Sentry).
+**Ultimo aggiornamento:** Fase 9 (discovery, watchlist, full-text, compare).
 
 ## Stack
 
@@ -8,7 +8,7 @@
 - **Database**: Neon Postgres via Vercel Marketplace (`@payloadcms/db-postgres`)
 - **Media**: Vercel Blob
 - **Deploy**: Vercel (team `edar-dev's projects`)
-- **Metadata API**: AniList (anime/manga), TMDB (film/TV), IGDB (videogiochi)
+- **Metadata API**: AniList, TMDB, IGDB, MAL (Jikan), Steam, Letterboxd
 
 ## Vincoli
 
